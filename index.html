@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasen Carroll — Quality Systems Architecture & FDA Consulting</title>
+  <meta name="description" content="I help regulated companies operationalize CSA, stand up IEC 62304 SDLCs, and transition to QMSR. 12 years FDA-regulated quality engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --fg: #e8e6e3;
+      --fg-bright: #f5f3f0;
+      --muted: #999;
+      --dim: #888;
+      --faint: #666;
+      --ghost: #555;
+      --rule: #1a1a1a;
+      --accent: #c9703c;
+      --serif: 'Source Serif 4', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding-left: 48px; padding-right: 48px; }
+
+    @media (max-width: 640px) {
+      .wrap { padding-left: 24px; padding-right: 24px; }
+    }
+
+    /* Nav */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; padding-bottom: 24px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--sans);
+    }
+    .nav-brand { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 32px; font-size: 13px; color: var(--dim); align-items: center; }
+    .nav-cta {
+      color: var(--bg); background: var(--fg);
+      padding: 6px 16px; border-radius: 4px; font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { gap: 16px; font-size: 12px; }
+    }
+
+    /* Hero */
+    .hero { padding: 120px 0 80px; }
+    .hero-tag {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px); font-weight: 300; line-height: 1.15;
+      max-width: 800px; margin-bottom: 32px; color: var(--fg-bright);
+    }
+    .hero h1 strong { font-weight: 600; }
+    .hero-sub {
+      font-size: 18px; line-height: 1.7; color: var(--muted);
+      max-width: 640px; margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: 14px 32px;
+      background: var(--fg); color: var(--bg);
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      border-radius: 4px; letter-spacing: 0.01em;
+    }
+    .btn-ghost {
+      display: inline-block; padding: 14px 32px;
+      border: 1px solid #333; color: var(--muted);
+      font-family: var(--sans); font-size: 14px; font-weight: 500;
+      border-radius: 4px;
+    }
+
+    /* Credibility */
+    .cred { padding-bottom: 80px; }
+    .cred-row {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      border-top: 1px solid var(--rule); padding-top: 48px;
+    }
+    .cred-item { flex: 1 1 200px; }
+    .cred-metric {
+      font-family: var(--mono); font-size: 28px; font-weight: 500;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .cred-label { font-size: 14px; color: var(--faint); line-height: 1.5; }
+
+    /* Moment */
+    .moment { padding: 40px 0 80px; }
+    .moment-inner {
+      max-width: 680px; border-left: 2px solid var(--accent); padding-left: 32px;
+    }
+    .section-tag {
+      font-size: 14px; font-family: var(--sans); font-weight: 600;
+      color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .moment-inner p:first-of-type {
+      font-size: 20px; line-height: 1.7; color: #ccc; margin-bottom: 16px;
+    }
+    .moment-inner p:last-of-type {
+      font-size: 17px; line-height: 1.7; color: var(--dim);
+    }
+
+    /* Services */
+    .services { padding: 40px 0 100px; }
+    .services-header {
+      font-size: 14px; font-family: var(--sans); font-weight: 600;
+      color: var(--faint); letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    .service-item {
+      padding: 32px 0; border-top: 1px solid var(--rule); cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .service-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .service-left { flex: 1 1 400px; }
+    .service-title {
+      font-size: 24px; font-weight: 400; color: var(--dim);
+      margin-bottom: 4px; transition: color 0.2s ease;
+    }
+    .service-item:hover .service-title,
+    .service-item.active .service-title { color: var(--fg-bright); }
+
+    .service-right {
+      text-align: right; font-family: var(--mono); flex-shrink: 0;
+    }
+    .service-price {
+      font-size: 20px; color: var(--ghost); transition: color 0.2s ease;
+    }
+    .service-item:hover .service-price,
+    .service-item.active .service-price { color: var(--fg-bright); }
+    .service-timeline { font-size: 12px; color: #444; margin-top: 4px; }
+
+    .service-detail {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.2s ease, margin 0.3s ease;
+      margin-top: 0;
+    }
+    .service-item.active .service-detail {
+      max-height: 200px; opacity: 1; margin-top: 16px;
+    }
+    .service-desc {
+      font-size: 15px; line-height: 1.7; color: var(--muted);
+      margin-bottom: 16px; padding-right: 48px;
+    }
+    .service-highlight {
+      font-size: 13px; font-family: var(--mono); color: var(--accent); margin-bottom: 8px;
+    }
+    .service-buyers { font-size: 13px; color: var(--ghost); font-style: italic; }
+
+    .service-cap { border-top: 1px solid var(--rule); }
+    .service-hourly { margin-top: 32px; font-size: 14px; color: var(--ghost); }
+    .service-hourly span { color: var(--dim); }
+
+    /* Differentiators */
+    .diff { padding: 60px 0 100px; }
+    .diff-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px;
+    }
+    .diff-tag {
+      font-size: 14px; font-family: var(--sans); font-weight: 600;
+      color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .diff-text { font-size: 16px; line-height: 1.7; color: var(--dim); }
+
+    /* CTA */
+    .cta { padding: 60px 0 120px; text-align: center; }
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 300;
+      color: var(--fg-bright); margin-bottom: 16px;
+    }
+    .cta p { font-size: 16px; color: var(--faint); margin-bottom: 40px; }
+    .cta-btn {
+      display: inline-block; padding: 16px 40px;
+      background: var(--fg); color: var(--bg);
+      font-family: var(--sans); font-size: 15px; font-weight: 600;
+      border-radius: 4px; border: none; cursor: pointer; width: 100%;
+    }
+    .cta-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .contact-form { max-width: 480px; margin: 0 auto; text-align: left; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%; padding: 12px 0; margin-bottom: 8px;
+      background: transparent; border: none; border-bottom: 1px solid var(--rule);
+      color: var(--fg); font-family: var(--sans); font-size: 15px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-bottom-color: var(--accent); }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--ghost); }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .form-status {
+      margin-top: 16px; font-family: var(--sans); font-size: 14px;
+      color: var(--accent); min-height: 20px;
+    }
+    .form-status.error { color: #c44; }
+
+    /* Footer */
+    footer {
+      padding: 32px 0; border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      font-family: var(--sans); font-size: 12px; color: #444;
+    }
+    .footer-links { display: flex; gap: 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="wrap">
+    <div class="nav-brand">JASEN CARROLL</div>
+    <div class="nav-links">
+      <a href="#approach">Approach</a>
+      <a href="#services">Services</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero wrap">
+    <p class="hero-tag">Quality Systems Architecture · FDA Consulting</p>
+    <h1>
+      I help regulated companies <strong>operationalize CSA</strong>, stand up
+      <strong>IEC 62304 SDLCs</strong>, and transition to <strong>QMSR</strong>.
+    </h1>
+    <p class="hero-sub">
+      12 years of FDA-regulated quality engineering across medical devices, pharma, and
+      combination products. I've written the CAPAs, executed the protocols, survived the
+      audits — and I write the software too.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a conversation</a>
+      <a href="https://www.linkedin.com/in/jasencarroll" class="btn-ghost">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- Credibility -->
+  <section class="cred wrap">
+    <div class="cred-row">
+      <div class="cred-item">
+        <div class="cred-metric">12+</div>
+        <div class="cred-label">Years FDA-regulated quality engineering</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-metric">3</div>
+        <div class="cred-label">Regulatory domains — devices, pharma, combination products</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-metric">21 CFR</div>
+        <div class="cred-label">Part 11 · Part 820 · Part 211 · ISO 13485 · IEC 62304 · EU MDR</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Moment -->
+  <section class="moment wrap" id="approach">
+    <div class="moment-inner">
+      <h2 class="section-tag">The regulatory moment</h2>
+      <p>
+        FDA's CSA final guidance dropped September 2025. QMSR went effective February 2026.
+        Every regulated company is in transition — and most are stuck.
+      </p>
+      <p>
+        Your CSV SOPs reference guidance that's been superseded. Your quality system was built
+        for the old QSR. Your SaMD team is building without a compliant SDLC. These aren't
+        future problems — auditors are asking about them now.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services wrap" id="services">
+    <h2 class="services-header">Services</h2>
+
+    <div id="service-list">
+      <div class="service-item active" data-index="0" onclick="toggleService(this)">
+        <div class="service-row">
+          <div class="service-left">
+            <h3 class="service-title">CSA Program Buildout</h3>
+            <div class="service-detail">
+              <p class="service-desc">
+                Full transition from legacy CSV to FDA's Computer Software Assurance framework.
+                Gap analysis, risk-based methodology, SOPs, templates, training, and a pilot assessment.
+              </p>
+              <p class="service-highlight">Sept 2025 final guidance is live. Your auditors will ask about CSA.</p>
+              <p class="service-buyers">For: Quality & Regulatory leaders at device and pharma companies running legacy CSV programs</p>
+            </div>
+          </div>
+          <div class="service-right">
+            <div class="service-price">$15–25k</div>
+            <div class="service-timeline">4–6 weeks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-item" data-index="1" onclick="toggleService(this)">
+        <div class="service-row">
+          <div class="service-left">
+            <h3 class="service-title">IEC 62304 SDLC Standup</h3>
+            <div class="service-detail">
+              <p class="service-desc">
+                Compliant software development lifecycle for SaMD/SiMD — safety classification,
+                phase gates, requirements management, traceability, SOUP inventory, and risk
+                integration per ISO 14971.
+              </p>
+              <p class="service-highlight">Agile-compatible per AAMI TIR45. Built to ship, not to slow you down.</p>
+              <p class="service-buyers">For: SaMD/SiMD startups preparing for FDA submission</p>
+            </div>
+          </div>
+          <div class="service-right">
+            <div class="service-price">$20–30k</div>
+            <div class="service-timeline">6–8 weeks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-item" data-index="2" onclick="toggleService(this)">
+        <div class="service-row">
+          <div class="service-left">
+            <h3 class="service-title">QMSR Gap Assessment</h3>
+            <div class="service-detail">
+              <p class="service-desc">
+                Full gap analysis against QMSR requirements (21 CFR 820 supplemental + ISO 13485:2016).
+                Remediation plan, updated procedures, and inspection readiness assessment.
+              </p>
+              <p class="service-highlight">QMSR went effective February 2, 2026. The grace period is over.</p>
+              <p class="service-buyers">For: Device companies navigating the QSR → QMSR transition</p>
+            </div>
+          </div>
+          <div class="service-right">
+            <div class="service-price">$10–18k</div>
+            <div class="service-timeline">3–5 weeks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-item" data-index="3" onclick="toggleService(this)">
+        <div class="service-row">
+          <div class="service-left">
+            <h3 class="service-title">Fractional Head of Quality</h3>
+            <div class="service-detail">
+              <p class="service-desc">
+                Part-time quality leadership for early-stage companies. QMS ownership, design
+                controls, CAPA management, supplier qualification, audit readiness, and
+                regulatory interface.
+              </p>
+              <p class="service-highlight">Quality leadership without the $180k+ FTE commitment.</p>
+              <p class="service-buyers">For: Seed to Series A SaMD/SiMD companies</p>
+            </div>
+          </div>
+          <div class="service-right">
+            <div class="service-price">$5–8k/mo</div>
+            <div class="service-timeline">3-month minimum</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-cap"></div>
+    <p class="service-hourly">
+      Targeted engagements (Part 11 assessments, CAPA remediation, mock audits, training delivery)
+      also available at <span>$175–225/hr</span>.
+    </p>
+  </section>
+
+  <!-- Differentiators -->
+  <section class="diff wrap">
+    <div class="diff-grid">
+      <div>
+        <h3 class="diff-tag">Not a typical quality consultant</h3>
+        <p class="diff-text">
+          Most quality consultants hand you a stack of Word templates and an invoice. I build
+          the systems — procedures, tooling, and software. I write TypeScript and Python. I'm
+          building CSA Workbench, an eQMS purpose-built for SaMD/SiMD, because every quality
+          tool I've used was built by people who've never dispositioned a deviation.
+        </p>
+      </div>
+      <div>
+        <h3 class="diff-tag">Bench experience, not just theory</h3>
+        <p class="diff-text">
+          Auto-injectors at PCI Pharma Services for Eli Lilly. Combination products under 21 CFR 4.
+          Class III medical devices. Sterile manufacturing. I've executed protocols at 2 AM,
+          written 483 responses under deadline, and built quality systems from scratch. The
+          consulting comes from the work, not a textbook.
+        </p>
+      </div>
+      <div>
+        <h3 class="diff-tag">No six-figure firm markup</h3>
+        <p class="diff-text">
+          Big consulting firms bill $300–500/hr and staff your project with junior associates
+          who've never seen an FDA inspection. You get me — senior-level expertise, direct
+          communication, no layers, no overhead. Project-based pricing aligned to outcomes,
+          not billable hours.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="cta wrap" id="contact">
+    <h2>Let's talk about what you're working through.</h2>
+    <p>20-minute call. No pitch deck. Just a conversation about where you are and whether I can help.</p>
+    <form id="contact-form" class="contact-form">
+      <input name="name" placeholder="Name" required autocomplete="name" />
+      <input name="email" type="email" placeholder="Email" required autocomplete="email" />
+      <input name="company" placeholder="Company (optional)" autocomplete="organization" />
+      <textarea name="message" placeholder="What are you working through?" required></textarea>
+      <button type="submit" class="cta-btn">Send message</button>
+    </form>
+    <div id="form-status" class="form-status"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="wrap">
+    <span>Jasen Carroll, LLC · Pennsylvania</span>
+    <div class="footer-links">
+      <a href="https://github.com/jasencarroll">GitHub</a>
+      <a href="https://www.linkedin.com/in/jasencarroll">LinkedIn</a>
+      <a href="https://jasencarroll.com">jasencarroll.com</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleService(el) {
+      document.querySelectorAll('.service-item').forEach(function(item) {
+        item.classList.remove('active');
+      });
+      el.classList.add('active');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var status = document.getElementById('form-status');
+      var btn = form.querySelector('button[type="submit"]');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.textContent = '';
+      status.className = 'form-status';
+
+      try {
+        var res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            company: form.company.value,
+            message: form.message.value
+          })
+        });
+        var data = await res.json();
+        if (res.ok) {
+          status.textContent = data.message;
+          form.reset();
+        } else {
+          status.textContent = data.detail || 'Something went wrong.';
+          status.className = 'form-status error';
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Try emailing jasen@jasencarroll.com directly.';
+        status.className = 'form-status error';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+      }
+    });
+  </script>
+
+</body>
+</html>
