@@ -7,6 +7,7 @@ RUN cd backend && uv sync --no-dev
 
 COPY backend/ ./backend/
 COPY index.html ./index.html
+COPY privacy-policy.pdf terms-and-conditions.pdf ./
 
 EXPOSE 8000
 
